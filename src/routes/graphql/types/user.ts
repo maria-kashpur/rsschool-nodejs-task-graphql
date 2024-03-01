@@ -4,6 +4,9 @@ import { User } from "@prisma/client";
 import { Context } from "../index.js";
 import { ProfileType } from "./profile.js";
 import { PostsType } from "./post.js";
+import profileResolvers from "../resolvers/profileResolers.js";
+import postResolvers from "../resolvers/postResolvers.js";
+import userResolvers from "../resolvers/userResolvers.js";
 
 const id = { type: new GraphQLNonNull(UUIDType) };
 const name = { type: new GraphQLNonNull(GraphQLString) };
@@ -17,15 +20,19 @@ export const UserType = new GraphQLObjectType<User, Context>({
     balance,
     profile: {
       type: ProfileType,
+      resolve: profileResolvers.profileByID,
     },
     posts: {
       type: PostsType,
+      resolve: postResolvers.postById,
     },
     userSubscribedTo: {
       type: UsersType,
+      resolve: userResolvers.userSubscribedTo,
     },
     subscribedToUser: {
       type: UsersType,
+      resolve: userResolvers.subscribedToUser,
     },
   }),
 });
