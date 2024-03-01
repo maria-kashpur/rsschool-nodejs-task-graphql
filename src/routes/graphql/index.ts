@@ -3,9 +3,11 @@ import { createGqlResponseSchema, gqlResponseSchema, schema } from './schemas.js
 import { graphql, parse, validate } from 'graphql';
 import { PrismaClient } from '@prisma/client';
 import depthLimit from 'graphql-depth-limit';
+import userLoader from './loaders/userLoader.js';
 
 export interface Context {
   prisma: PrismaClient;
+  userLoader: ReturnType<typeof userLoader>;
 }
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
@@ -25,6 +27,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
       const variableValues = req.body.variables;
       const contextValue: Context = {
         prisma,
+        userLoader: userLoader(prisma)
       };
 
       const graphQLArgs = {
