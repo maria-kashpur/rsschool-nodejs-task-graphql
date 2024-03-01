@@ -3,6 +3,7 @@ import { ChangeUserInputType, UserType, createUserInputType } from '../user.js';
 import { UUIDType } from '../uuid.js';
 import { ChangePostInputType, CreatePostInputType, PostType } from '../post.js';
 import { ProfileType, changeProfileInputType, createProfileInputType } from '../profile.js';
+import postResolvers from '../../resolvers/postResolvers.js';
 
 const id = { type: new GraphQLNonNull(UUIDType) };
 
@@ -28,25 +29,32 @@ const rootMutation = new GraphQLObjectType({
         id,
       },
     },
+    
     createPost: {
       type: PostType,
       args: {
         dto: { type: CreatePostInputType },
       },
+      resolve: postResolvers.createPost
     },
+
     changePost: {
       type: PostType,
       args: {
         id,
         dto: { type: ChangePostInputType },
       },
+      resolve: postResolvers.changePost
     },
+
     deletePost: {
       type: GraphQLBoolean,
       args: {
         id,
       },
+      resolve: postResolvers.deletePost
     },
+
     createProfile: {
       type: ProfileType,
       args: {
