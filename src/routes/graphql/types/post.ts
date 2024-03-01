@@ -1,4 +1,4 @@
-import { GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLInputObjectType, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { UUIDType } from "./uuid.js";
 import { Post } from "@prisma/client";
 import { Context } from "../index.js";
@@ -17,3 +17,20 @@ export const PostType = new GraphQLObjectType<Post, Context>({
 });
 
 export const PostsType = new GraphQLList(PostType);
+
+export const CreatePostInputType = new GraphQLInputObjectType({
+  name: 'CreatePostInput',
+  fields: () => ({
+    title,
+    content,
+    authorId: id,
+  }),
+});
+
+export const ChangePostInputType = new GraphQLInputObjectType({
+  name: 'ChangePostInput',
+  fields: () => ({
+    title,
+    content,
+  }),
+});

@@ -1,4 +1,4 @@
-import { GraphQLFloat, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import { GraphQLFloat, GraphQLInputObjectType, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { UUIDType } from "./uuid.js";
 import { User } from "@prisma/client";
 import { Context } from "../index.js";
@@ -31,3 +31,19 @@ export const UserType = new GraphQLObjectType<User, Context>({
 });
 
 export const UsersType = new GraphQLList(UserType);
+
+export const createUserInputType = new GraphQLInputObjectType({
+  name: 'CreateUserInput',
+  fields: () => ({
+    name,
+    balance,
+  }),
+});
+
+export const ChangeUserInputType = new GraphQLInputObjectType({
+  name: 'ChangeUserInput',
+  fields: () => ({
+    name,
+    balance: { type: GraphQLFloat },
+  }),
+});
