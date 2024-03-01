@@ -5,6 +5,7 @@ import { PostType, PostsType } from '../post.js';
 import { ProfileType, ProfilesType } from '../profile.js';
 import { MemberType, MemberTypeId, MemberTypesType } from '../member.js';
 import postResolvers from '../../resolvers/postResolvers.js';
+import profileResolvers from '../../resolvers/profileResolers.js';
 
 const id = { type: new GraphQLNonNull(UUIDType) };
 const title = { type: new GraphQLNonNull(GraphQLString) };
@@ -23,6 +24,7 @@ const rootQuery = new GraphQLObjectType({
     users: {
       type: UsersType,
     },
+
     post: {
       type: PostType,
       args: {
@@ -30,19 +32,25 @@ const rootQuery = new GraphQLObjectType({
       },
       resolve: postResolvers.postById,
     },
+
     posts: {
       type: PostsType,
       resolve: postResolvers.postsAll
     },
+
     profile: {
       type: ProfileType,
       args: {
         id,
       },
+      resolve: profileResolvers.profileByID
     },
+
     profiles: {
       type: ProfilesType,
+      resolve: profileResolvers.profilesAll
     },
+
     memberType: {
       type: MemberType,
       args: {
