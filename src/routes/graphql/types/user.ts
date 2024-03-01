@@ -2,6 +2,8 @@ import { GraphQLFloat, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSt
 import { UUIDType } from "./uuid.js";
 import { User } from "@prisma/client";
 import { Context } from "../index.js";
+import { ProfileType } from "./profiles.js";
+import { PostsType } from "./post.js";
 
 const id = { type: new GraphQLNonNull(UUIDType) };
 const name = { type: new GraphQLNonNull(GraphQLString) };
@@ -13,6 +15,18 @@ export const UserType = new GraphQLObjectType<User, Context>({
     id,
     name,
     balance,
+    profile: {
+      type: ProfileType,
+    },
+    posts: {
+      type: PostsType,
+    },
+    userSubscribedTo: {
+      type: UsersType,
+    },
+    subscribedToUser: {
+      type: UsersType,
+    },
   }),
 });
 
