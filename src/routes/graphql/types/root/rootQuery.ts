@@ -7,6 +7,7 @@ import { MemberType, MemberTypeId, MemberTypesType } from '../member.js';
 import postResolvers from '../../resolvers/postResolvers.js';
 import profileResolvers from '../../resolvers/profileResolers.js';
 import userResolvers from '../../resolvers/userResolvers.js';
+import memberResolvers from '../../resolvers/memberResolvers.js';
 
 const id = { type: new GraphQLNonNull(UUIDType) };
 const title = { type: new GraphQLNonNull(GraphQLString) };
@@ -61,9 +62,11 @@ const rootQuery = new GraphQLObjectType({
           type: MemberTypeId,
         },
       },
+      resolve: memberResolvers.memberTypeById,
     },
     memberTypes: {
       type: MemberTypesType,
+      resolve: memberResolvers.memberTypesAll,
     },
   },
 });

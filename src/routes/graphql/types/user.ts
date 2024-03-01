@@ -24,7 +24,7 @@ export const UserType = new GraphQLObjectType<User, Context>({
     },
     posts: {
       type: PostsType,
-      resolve: postResolvers.postById,
+      resolve: postResolvers.postById, //????
     },
     userSubscribedTo: {
       type: UsersType,
