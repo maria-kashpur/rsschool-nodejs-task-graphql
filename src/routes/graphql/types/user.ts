@@ -2,7 +2,7 @@ import { GraphQLFloat, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSt
 import { UUIDType } from "./uuid.js";
 import { User } from "@prisma/client";
 import { Context } from "../index.js";
-import { ProfileType } from "./profiles.js";
+import { ProfileType } from "./profile.js";
 import { PostsType } from "./post.js";
 
 const id = { type: new GraphQLNonNull(UUIDType) };
