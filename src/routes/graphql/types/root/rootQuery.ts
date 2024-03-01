@@ -64,6 +64,7 @@ const rootQuery = new GraphQLObjectType({
       },
       resolve: memberResolvers.memberTypeById,
     },
+    
     memberTypes: {
       type: MemberTypesType,
       resolve: memberResolvers.memberTypesAll,

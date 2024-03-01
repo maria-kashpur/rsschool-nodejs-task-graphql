@@ -33,7 +33,7 @@ const rootMutation = new GraphQLObjectType({
       args: {
         id,
       },
-      resolve: userResolvers.delete,
+      resolve: userResolvers.deleteUser,
     },
 
     createPost: {
