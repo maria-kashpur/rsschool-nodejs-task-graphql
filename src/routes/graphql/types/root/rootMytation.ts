@@ -6,6 +6,7 @@ import { ProfileType, changeProfileInputType, createProfileInputType } from '../
 import postResolvers from '../../resolvers/postResolvers.js';
 import profileResolvers from '../../resolvers/profileResolers.js';
 import userResolvers from '../../resolvers/userResolvers.js';
+import subscriptionResolvers from '../../resolvers/subscriptionResolvers.js';
 
 const id = { type: new GraphQLNonNull(UUIDType) };
 
@@ -17,7 +18,7 @@ const rootMutation = new GraphQLObjectType({
       args: {
         dto: { type: createUserInputType },
       },
-      resolve: userResolvers.createUser
+      resolve: userResolvers.createUser,
     },
     changeUser: {
       type: UserType,
@@ -25,14 +26,14 @@ const rootMutation = new GraphQLObjectType({
         id,
         dto: { type: ChangeUserInputType },
       },
-      resolve: userResolvers.changeUser
+      resolve: userResolvers.changeUser,
     },
     deleteUser: {
       type: GraphQLBoolean,
       args: {
         id,
       },
-      resolve: userResolvers.delete
+      resolve: userResolvers.delete,
     },
 
     createPost: {
@@ -40,7 +41,7 @@ const rootMutation = new GraphQLObjectType({
       args: {
         dto: { type: CreatePostInputType },
       },
-      resolve: postResolvers.createPost
+      resolve: postResolvers.createPost,
     },
 
     changePost: {
@@ -49,7 +50,7 @@ const rootMutation = new GraphQLObjectType({
         id,
         dto: { type: ChangePostInputType },
       },
-      resolve: postResolvers.changePost
+      resolve: postResolvers.changePost,
     },
 
     deletePost: {
@@ -57,7 +58,7 @@ const rootMutation = new GraphQLObjectType({
       args: {
         id,
       },
-      resolve: postResolvers.deletePost
+      resolve: postResolvers.deletePost,
     },
 
     createProfile: {
@@ -65,7 +66,7 @@ const rootMutation = new GraphQLObjectType({
       args: {
         dto: { type: createProfileInputType },
       },
-      resolve: profileResolvers.createProfile
+      resolve: profileResolvers.createProfile,
     },
 
     changeProfile: {
@@ -74,7 +75,7 @@ const rootMutation = new GraphQLObjectType({
         id,
         dto: { type: changeProfileInputType },
       },
-      resolve: profileResolvers.changeProfile
+      resolve: profileResolvers.changeProfile,
     },
 
     deleteProfile: {
@@ -82,7 +83,7 @@ const rootMutation = new GraphQLObjectType({
       args: {
         id,
       },
-      resolve: profileResolvers.deleteProfile
+      resolve: profileResolvers.deleteProfile,
     },
 
     subscribeTo: {
@@ -91,6 +92,7 @@ const rootMutation = new GraphQLObjectType({
         userId: id,
         authorId: id,
       },
+      resolve: subscriptionResolvers.subscribeTo,
     },
     unsubscribeFrom: {
       type: GraphQLBoolean,
@@ -98,6 +100,7 @@ const rootMutation = new GraphQLObjectType({
         userId: id,
         authorId: id,
       },
+      resolve: subscriptionResolvers.unsubscribeFrom,
     },
   },
 });
