@@ -5,11 +5,15 @@ import { PrismaClient } from '@prisma/client';
 import depthLimit from 'graphql-depth-limit';
 import userLoader from './loaders/userLoader.js';
 import memberLoader from './loaders/memberLoader.js';
+import postLoader from './loaders/postLoader.js';
+import profileLoader from './loaders/profileLoader.js';
 
 export interface Context {
   prisma: PrismaClient;
   userLoader: ReturnType<typeof userLoader>;
   memberLoader: ReturnType<typeof memberLoader>;
+  postLoader: ReturnType<typeof postLoader>;
+  profileLoader: ReturnType<typeof profileLoader>;
 }
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
@@ -30,7 +34,9 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
       const contextValue: Context = {
         prisma,
         userLoader: userLoader(prisma),
-        memberLoader: memberLoader(prisma)
+        memberLoader: memberLoader(prisma),
+        postLoader: postLoader(prisma),
+        profileLoader: profileLoader(prisma),
       };
 
       const graphQLArgs = {
