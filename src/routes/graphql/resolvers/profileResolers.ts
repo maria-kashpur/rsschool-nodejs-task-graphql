@@ -1,10 +1,15 @@
 import { GraphQLFieldResolver } from "graphql";
 import { Context } from "../index.js";
-import { Profile } from "@prisma/client";
+import { Profile, User } from "@prisma/client";
 
 const profileResolvers: { [key: string]: GraphQLFieldResolver<unknown, Context> } = {
   profilesAll: async function (_source, _args, context): Promise<Profile[]> {
     return await context.prisma.profile.findMany();
+  },
+
+  getByUserId: async function (source, _args, context): Promise<Profile> {
+    const { id } = source as User;
+    return (await context.profileLoader).load(id);
   },
 
   profileByID: async function (_source, args: Profile, context): Promise<Profile | null> {

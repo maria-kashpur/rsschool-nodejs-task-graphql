@@ -20,11 +20,11 @@ export const UserType = new GraphQLObjectType<User, Context>({
     balance,
     profile: {
       type: ProfileType,
-      resolve: profileResolvers.profileByID,
+      resolve: profileResolvers.getByUserId,
     },
     posts: {
       type: PostsType,
-      resolve: postResolvers.postById, //????
+      resolve: postResolvers.postByUserId,
     },
     userSubscribedTo: {
       type: UsersType,

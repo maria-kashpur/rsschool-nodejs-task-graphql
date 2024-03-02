@@ -1,6 +1,6 @@
 import { GraphQLFieldResolver } from "graphql";
 import { Context } from "../index.js";
-import { Post } from "@prisma/client";
+import { Post, User } from "@prisma/client";
 
 const postResolvers: { [key: string]: GraphQLFieldResolver<unknown, Context> } = {
   postsAll: async function (_source, _args, context): Promise<Post[]> {
@@ -12,6 +12,11 @@ const postResolvers: { [key: string]: GraphQLFieldResolver<unknown, Context> } =
     return await context.prisma.post.findUnique({
       where: { id },
     });
+  },
+
+  postByUserId: async function (source, _args, context): Promise<Post[]> {
+    const { id } = source as User;
+    return (await context.postLoader).load(id);
   },
 
   createPost: async function (_source, args, context): Promise<Post> {
