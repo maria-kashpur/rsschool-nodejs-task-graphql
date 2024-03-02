@@ -24,9 +24,10 @@ const rootQuery = new GraphQLObjectType({
       },
       resolve: userResolvers.userById,
     },
+    
     users: {
       type: UsersType,
-      resolve: userResolvers.userById,
+      resolve: userResolvers.usersAll,
     },
 
     post: {
@@ -64,7 +65,7 @@ const rootQuery = new GraphQLObjectType({
       },
       resolve: memberResolvers.memberTypeById,
     },
-    
+
     memberTypes: {
       type: MemberTypesType,
       resolve: memberResolvers.memberTypesAll,
