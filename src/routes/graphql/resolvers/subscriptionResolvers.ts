@@ -11,9 +11,8 @@ const subscriptionResolvers: { [key: string]: GraphQLFieldResolver<unknown, Cont
         authorId: authorId,
       },
     });
-    return await context.prisma.user.findUnique({
-      where: {id: userId},
-    });
+
+    return (await context.userLoader).load(userId);
   },
 
   unsubscribeFrom: async function (_source, args, context): Promise<Boolean> {
